@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Display from './components/Display'
+import ButtonContainer from './components/ButtonContainer'
+import Styles from './App.module.css'
+import 'bootstrap/dist/css/bootstrap.css';
 
-function App() {
+const App = () => {
+  const [calVal, setcalVal]=useState("");
+  const onButtonClick=(buttonText)=>{
+    if (buttonText ==='c'){
+      setcalVal("")
+    }
+    else if (buttonText === '='){
+      const result=eval(calVal)
+      setcalVal(result)
+    }
+    else{
+      const newDisplayValue=calVal+buttonText;
+      setcalVal(newDisplayValue)
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    
+    <div className='container d-flex justify-content-center'>
+    <div  className={Styles.calculator}>
+    <h1>Calculator</h1>
+    <Display displayVal={calVal}/>
+    <ButtonContainer onButtonClick={onButtonClick}/>
     </div>
-  );
+    </div>
+    </>
+  )
 }
 
-export default App;
+export default App
